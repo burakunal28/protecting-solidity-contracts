@@ -1,6 +1,8 @@
+# Solidity Bootcamp Task4
+
 # How to Protect Against Solidity Underflow, Overflow, and Reentrancy Attacks?
 
-## 1. Underflow and Overflow:
+## Underflow and Overflow:
 
 - **Use Correct Data Types:** Limit variables with appropriate data types to ensure values stay within the expected range. For example:
     ```
@@ -8,14 +10,16 @@
     ```
 - **Safe Mathematical Operations:** Safely perform mathematical operations using security libraries like `SafeMath`:
     ```
+    // Use SafeMath for uint256 to prevent overflows and underflows
     using SafeMath for uint256;
-
+    
+    // Safe addition function
     function safeAddition(uint256 a, uint256 b) public pure returns (uint256) {
         return a.add(b);
     }
     ```
 
-## 2. Reentrancy Attacks:
+## Reentrancy Attacks:
 
 - **Delay Ether Transfers:** Delay ether transfers until after other operations in the contract. For example:
     ```
@@ -37,41 +41,10 @@
     }
     ```
 
-# Solidity Alt Taşma, Taşma ve Tekrar Girme Saldırılarına Karşı Nasıl Korunulur?
+## Developer
 
-## 1. Alt Taşma ve Taşma:
+This project was created by [Burak Ünal](https://linktr.ee/burakunal28).
 
-- **Doğru Veri Türlerini Kullanın:** Değerlerin beklenen aralıkta kalmasını sağlamak için uygun veri türleriyle değişkenleri sınırlandırın. Örneğin:
-    ```
-    uint8 public myVariable; // Değişkeni uint8 olarak tanımlayarak, değerleri 0 ile 255 arasında sınırlandırın
-    ```
-- **Güvenli Matematiksel İşlemler:** `SafeMath` gibi güvenlik kütüphaneleri kullanarak matematiksel işlemleri güvenli bir şekilde gerçekleştirin:
-    ```
-    using SafeMath for uint256;
+## License
 
-    function safeAddition(uint256 a, uint256 b) public pure returns (uint256) {
-        return a.add(b);
-    }
-    ```
-
-## 2. Tekrar Girme Saldırıları:
-
-- **Ether Transferlerini Geciktirin:** Ether transferlerini sözleşmedeki diğer işlemlerden sonra geciktirin. Örneğin:
-    ```
-    function transferAndDoSomething() public {
-        // Diğer işlemler burada yapılır.
-
-        // Ether transferi en sona yerleştirilir.
-        recipient.transfer(amount);
-    }
-    ```
-- **Gaz Limitlerini Kontrol Edin:** Fon transferleri yaparken, fon transferi için gaz limitlerini manuel olarak ayarlayın. Örneğin:
-    ```
-    function transferFunds(address recipient, uint256 amount) public {
-        // Diğer işlemler burada yapılır.
-
-        // Fon transferi için gaz limitini manuel olarak ayarlayın.
-        (bool success, ) = recipient.call{value: amount, gas: 20000}("");
-        require(success, "Transfer başarısız oldu");
-    }
-    ```
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
